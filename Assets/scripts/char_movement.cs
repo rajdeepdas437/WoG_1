@@ -35,12 +35,15 @@ public class char_movement : MonoBehaviour
     {
         if (value.isPressed)
         {
-            Debug.Log("space pressed");
             Dash();
         }
     }
-
-
+    
+    void endAttack()
+    {
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("SpecialAttack", false);
+    }
 
     void Dash()
     {
@@ -60,23 +63,10 @@ public class char_movement : MonoBehaviour
         }
     }
 
-    public void OnSprint(InputValue value)
-    {
-        bool Sprint = value.isPressed;
-        movespeed = Sprint ? (walkspeed * sprintMultiplier) : walkspeed;
-    }
-
     void Start()
     {
         animator = GetComponent<Animator>();
         movespeed = walkspeed;
-    }
-
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color=Color.magenta; 
-        Gizmos.DrawLine(player.position, new Vector2(player.position.x, player.position.y - rayLength*moveInput.normalized.magnitude));      
     }
 
     void FixedUpdate()
